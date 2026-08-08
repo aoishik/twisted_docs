@@ -3,7 +3,7 @@ title: Install
 description: Demo guide showing how to reference images from the shared assets folder.
 group: Guides
 order: 2
-icon: 🧪
+icon: 
 ---
 
 # Install

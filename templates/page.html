@@ -4,477 +4,267 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>{{ title }}</title>
     <meta name="description" content="{{ description }}">
-
     <link rel="stylesheet" href="{{ base_url }}/static/output.css">
     <link rel="stylesheet" href="{{ base_url }}/static/pygments.css">
-
     <style>
-        html {
-            scroll-behavior: smooth;
+        :root {
+            --absolute-white: #FAFAFA;
+            --fair-gray: #A1A1A1;
+            --dark-black: #050505;
+            --twisted-200: #CAB3E1;
+            --twisted-400: #8364A2;
+            --twisted-600: #5A4471;
+            --twisted-800: #36214B;
+            --twisted-999: #29153D;
+            --surface: #1E072F;
         }
-
-        /* TOC */
-
-        .toc ul {
-            list-style: none;
-            padding-left: .75rem;
+        @font-face {
+            font-family: 'Pirkalla';
+            src: url("{{ base_url }}/static/fonts/pirkkala.ttf") format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
         }
-
-        .toc>ul {
-            padding-left: 0;
+        * { border-radius: 0 !important; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--surface);
+            color: var(--absolute-white);
+            font-family: 'Pirkalla', 'Courier New', monospace;
         }
-
-        .toc li {
-            margin: .35rem 0;
+        .bevel {
+            border: 2px solid;
+            border-color: var(--twisted-200) var(--dark-black) var(--dark-black) var(--twisted-200);
         }
-
+        .bevel-in {
+            border: 2px solid;
+            border-color: var(--dark-black) var(--twisted-200) var(--twisted-200) var(--dark-black);
+        }
+        .titlebar {
+            background: var(--twisted-600);
+            color: var(--absolute-white);
+            font-weight: bold;
+            font-size: .875rem;
+            padding: 4px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .titlebar-controls { display: flex; gap: 4px; }
+        .titlebar-controls span {
+            display: inline-block;
+            background: var(--twisted-400);
+            color: var(--dark-black);
+            border: 1px solid;
+            border-color: var(--twisted-200) var(--dark-black) var(--dark-black) var(--twisted-200);
+            padding: 0 8px;
+            line-height: 1;
+        }
+        .toc ul { list-style: none; padding-left: .75rem; }
+        .toc > ul { padding-left: 0; }
+        .toc li { margin: .35rem 0; }
         .toc a {
             display: block;
-            color: rgb(71 85 105);
+            color: var(--twisted-200);
             text-decoration: none;
             border-left: 2px solid transparent;
             padding-left: .75rem;
-            transition: .2s;
+            transition: .15s;
         }
-
         .toc a:hover {
-            color: rgb(37 99 235);
-            border-left-color: rgb(37 99 235);
+            color: var(--absolute-white);
+            border-left-color: var(--twisted-400);
         }
-
-        /* Markdown Admonitions */
-
         .admonition {
             margin: 1.5rem 0;
-            border-radius: .85rem;
-            border: 1px solid rgb(226 232 240);
             overflow: hidden;
+            border: 2px solid;
+            border-color: var(--twisted-200) var(--dark-black) var(--dark-black) var(--twisted-200);
+            background: var(--twisted-800);
         }
-
         .admonition-title {
-            padding: .85rem 1rem;
+            padding: .5rem 1rem;
             font-weight: 700;
+            background: var(--twisted-600);
+            color: var(--absolute-white);
         }
-
-        .admonition>*:not(.admonition-title) {
-            padding: 1rem;
-        }
-
-        .admonition.note {
-            background: rgb(239 246 255);
-            border-color: rgb(147 197 253);
-        }
-
-        .admonition.note .admonition-title {
-            background: rgb(219 234 254);
-            color: rgb(30 64 175);
-        }
-
-        .admonition.tip {
-            background: rgb(240 253 244);
-            border-color: rgb(134 239 172);
-        }
-
-        .admonition.tip .admonition-title {
-            background: rgb(220 252 231);
-            color: rgb(21 128 61);
-        }
-
-        .admonition.warning {
-            background: rgb(255 251 235);
-            border-color: rgb(253 224 71);
-        }
-
-        .admonition.warning .admonition-title {
-            background: rgb(254 243 199);
-            color: rgb(146 64 14);
-        }
-
-        .admonition.danger,
-        .admonition.error {
-            background: rgb(254 242 242);
-            border-color: rgb(252 165 165);
-        }
-
+        .admonition > *:not(.admonition-title) { padding: 1rem; color: var(--absolute-white); }
+        .admonition.tip .admonition-title { background: #3f6b3f; }
+        .admonition.warning .admonition-title { background: #7a5c1e; }
         .admonition.danger .admonition-title,
-        .admonition.error .admonition-title {
-            background: rgb(254 226 226);
-            color: rgb(185 28 28);
-        }
-
-        /* Scrollbar */
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
+        .admonition.error .admonition-title { background: #6e1f2e; }
+        ::-webkit-scrollbar { width: 16px; }
+        ::-webkit-scrollbar-track { background: var(--twisted-999); }
         ::-webkit-scrollbar-thumb {
-            background: rgb(148 163 184);
-            border-radius: 999px;
+            background: var(--twisted-400);
+            border: 2px solid;
+            border-color: var(--twisted-200) var(--dark-black) var(--dark-black) var(--twisted-200);
         }
+        .prose pre {
+            border: 2px solid !important;
+            border-color: var(--dark-black) var(--twisted-200) var(--twisted-200) var(--dark-black) !important;
+            background: #140420 !important;
+        }
+        .prose code { color: var(--twisted-200); }
+        .prose a { color: var(--twisted-200); text-decoration: underline; }
+        .prose a:hover { color: var(--absolute-white); }
     </style>
-
 </head>
 
-<body class="bg-slate-100 text-slate-800 antialiased">
-
+<body class="antialiased">
     <div class="flex h-screen overflow-hidden">
-
-        <!-- Overlay -->
-
-        <div id="overlay"
-            class="fixed inset-0 bg-black/40 z-40 hidden lg:hidden"
-            onclick="closeSidebar()">
-        </div>
-
-        <!-- Sidebar -->
+        <div id="overlay" class="fixed inset-0 bg-black/60 z-40 hidden lg:hidden" onclick="closeSidebar()"></div>
 
         <aside id="sidebar"
-            class="fixed lg:static inset-y-0 left-0 z-50 w-80 bg-slate-950 text-slate-200 transform -translate-x-full lg:translate-x-0 transition duration-300 flex flex-col border-r border-slate-800">
+            style="background: var(--twisted-800);"
+            class="bevel fixed lg:static inset-y-0 left-0 z-50 w-80 transform -translate-x-full lg:translate-x-0 transition duration-300 flex flex-col">
 
-            <!-- Logo -->
-
-            <div class="border-b border-slate-800 p-6">
-
-                <a href="{{ base_url }}/"
-                    class="text-2xl font-bold tracking-tight text-white">
-
-                    Docs
-
-                </a>
-
-                <p class="text-sm text-slate-400 mt-1">
-                    Documentation
-                </p>
-
+            <div class="titlebar">
+                <span>twisted_docs.exe</span>
+                <div class="titlebar-controls">
+                    <span>_</span><span>&#9633;</span><span>&#215;</span>
+                </div>
             </div>
 
-            <!-- Search -->
-
-            <div class="p-5">
-
-                <input type="search"
-                    placeholder="Search (Coming Soon)"
-                    class="w-full rounded-xl bg-slate-900 border border-slate-700 px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-
+            <div style="background: var(--twisted-999);" class="px-5 py-3">
+                <a href="{{ base_url }}/" style="color: var(--absolute-white);" class="text-xl font-bold">twisted docs</a>
+                <p style="color: var(--twisted-200);" class="text-sm mt-1">Documentation</p>
             </div>
 
-            <!-- Navigation -->
+            <div class="p-4">
+                <input type="search" placeholder="Search (Coming Soon)"
+                    style="background: var(--twisted-999); color: var(--absolute-white); font-family: inherit;"
+                    class="bevel-in w-full px-3 py-2 text-sm outline-none">
+            </div>
 
-            <nav class="flex-1 overflow-y-auto px-4 pb-8">
-
+            <nav class="flex-1 overflow-y-auto px-3 pb-8" style="background: var(--twisted-999);">
                 {% macro render_navigation(nodes) %}
                     {% for node in nodes %}
-
                         {% if node.page %}
-
                             <a href="{{ node.page.url }}"
-                                class="block rounded-xl px-4 py-2.5 text-sm transition
-
+                                class="block px-3 py-2 text-sm transition"
                                 {% if node.page.slug == current_slug %}
-                                    bg-blue-600 text-white shadow-lg
+                                    style="background: var(--twisted-400); color: var(--absolute-white);"
                                 {% else %}
-                                    text-slate-300 hover:bg-slate-800 hover:text-white
-                                {% endif %}">
-
-                                {% if node.icon %}
-                                    <span class="mr-2">{{ node.icon }}</span>
-                                {% endif %}
-
+                                    style="color: var(--twisted-200);"
+                                    onmouseover="this.style.background='var(--twisted-800)';this.style.color='var(--absolute-white)'"
+                                    onmouseout="this.style.background='transparent';this.style.color='var(--twisted-200)'"
+                                {% endif %}>
+                                {% if node.icon %}<span class="mr-2">{{ node.icon }}</span>{% endif %}
                                 {{ node.title }}
-
                             </a>
-
                         {% else %}
-
                             <details open class="mb-4 group">
-
-                                <summary
-                                    class="list-none cursor-pointer flex justify-between items-center py-2 uppercase text-xs tracking-widest font-semibold text-slate-400">
-
+                                <summary style="color: var(--fair-gray);"
+                                    class="list-none cursor-pointer flex justify-between items-center py-2 uppercase text-xs tracking-widest font-semibold">
                                     <span class="flex items-center gap-2">
-                                        {% if node.icon %}
-                                            <span>{{ node.icon }}</span>
-                                        {% endif %}
+                                        {% if node.icon %}<span>{{ node.icon }}</span>{% endif %}
                                         <span>{{ node.title }}</span>
                                     </span>
-
-                                    <svg class="size-4 transition group-open:rotate-180"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                        viewBox="0 0 24 24">
-
+                                    <svg class="size-4 transition group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                         <path d="m6 9 6 6 6-6" />
-
                                     </svg>
-
                                 </summary>
-
-                                <div class="mt-2 space-y-1 pl-2 border-l border-slate-800/70">
+                                <div style="border-left: 2px solid var(--twisted-800);" class="mt-2 space-y-1 pl-2">
                                     {{ render_navigation(node.children) }}
                                 </div>
-
                             </details>
-
                         {% endif %}
-
                     {% endfor %}
                 {% endmacro %}
-
                 {{ render_navigation(navigation) }}
-
             </nav>
-
         </aside>
 
-        <!-- Main -->
-
         <div class="flex-1 flex flex-col overflow-hidden">
-
-            <!-- Header -->
-
-            <header
-                class="sticky top-0 bg-white/90 backdrop-blur border-b border-slate-200 z-30">
-
-                <div
-                    class="h-16 flex items-center justify-between px-6">
-
-                    <button
-                        class="lg:hidden p-2 rounded-lg hover:bg-slate-100"
-                        onclick="openSidebar()">
-
-                        ☰
-
-                    </button>
-
-                    <div
-                        class="text-sm text-slate-500 flex flex-wrap items-center gap-0.5">
-
+            <header style="background: var(--twisted-400); border-bottom: 2px solid var(--twisted-200);" class="sticky top-0 z-30">
+                <div class="h-12 flex items-center justify-between px-4">
+                    <button style="color: var(--absolute-white);" class="lg:hidden bevel px-2 py-1" onclick="openSidebar()">&#9776;</button>
+                    <div style="color: var(--absolute-white);" class="text-sm flex flex-wrap items-center gap-0.5">
                         {% for crumb in breadcrumbs %}
-
-                            {% if not loop.first %}
-                                <span class="mx-2 text-slate-300">/</span>
-                            {% endif %}
-
+                            {% if not loop.first %}<span class="mx-2" style="color: var(--twisted-200);">/</span>{% endif %}
                             {% if crumb.url %}
-                                <a href="{{ crumb.url }}"
-                                    class="hover:text-blue-600">
-
-                                    {{ crumb.title }}
-
-                                </a>
+                                <a href="{{ crumb.url }}" style="color: var(--twisted-200);"
+                                   onmouseover="this.style.color='var(--absolute-white)'"
+                                   onmouseout="this.style.color='var(--twisted-200)'">{{ crumb.title }}</a>
                             {% else %}
-                                <span class="{% if loop.last %}font-medium text-slate-700{% endif %}">
-
-                                    {{ crumb.title }}
-
-                                </span>
+                                <span {% if loop.last %}style="color: var(--absolute-white); font-weight: 700;"{% endif %}>{{ crumb.title }}</span>
                             {% endif %}
-
                         {% endfor %}
-
                     </div>
-
                 </div>
-
             </header>
 
-            <!-- Content -->
-
             <main class="flex-1 overflow-y-auto">
-
                 <div class="max-w-7xl mx-auto px-6 lg:px-10 py-10">
-
                     <div class="flex gap-10">
-
-                        <!-- Article -->
-
                         <div class="flex-1 min-w-0">
-
-                            <!-- Hero -->
-
-                            <section
-                                class="rounded-3xl overflow-hidden bg-gradient-to-br from-blue-700 via-blue-800 to-slate-950 shadow-2xl">
-
-                                <div class="p-10 lg:p-14">
-
-                                    <h1
-                                        class="text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-
-                                        {{ title }}
-
-                                    </h1>
-
-                                    {% if description %}
-
-                                    <p
-                                        class="mt-5 text-blue-100 text-lg max-w-3xl leading-relaxed">
-
-                                        {{ description }}
-
-                                    </p>
-
-                                    {% endif %}
-
+                            <section class="bevel overflow-hidden" style="background: var(--twisted-800);">
+                                <div class="titlebar">
+                                    <span>{{ title }}.txt</span>
+                                    <div class="titlebar-controls">
+                                        <span>_</span><span>&#9633;</span><span>&#215;</span>
+                                    </div>
                                 </div>
-
+                                <div class="p-8 lg:p-12 text-center">
+                                    <h1 style="color: var(--absolute-white);" class="text-4xl lg:text-5xl font-extrabold tracking-tight">{{ title }}</h1>
+                                    {% if description %}
+                                    <p style="color: var(--twisted-200);" class="mt-5 text-lg max-w-3xl mx-auto leading-relaxed">{{ description }}</p>
+                                    {% endif %}
+                                </div>
                             </section>
-
-                            <!-- Markdown -->
 
                             <article
-                                class="prose prose-slate max-w-none mt-10
-
-                                prose-headings:font-bold
-                                prose-headings:text-slate-900
-                                prose-headings:scroll-mt-24
-
-                                prose-p:text-slate-700
-
-                                prose-a:text-blue-600
-                                hover:prose-a:text-blue-700
-
-                                prose-img:rounded-2xl
-                                prose-img:shadow-lg
-
-                                prose-pre:rounded-2xl
-                                prose-pre:bg-slate-950
-
-                                prose-code:text-blue-700
-
-                                prose-table:w-full">
-
+                                class="prose prose-invert max-w-none mt-10 prose-headings:font-bold prose-headings:scroll-mt-24 prose-table:w-full"
+                                style="--tw-prose-body: var(--absolute-white); --tw-prose-headings: var(--absolute-white); --tw-prose-links: var(--twisted-200); --tw-prose-bold: var(--absolute-white); --tw-prose-code: var(--twisted-200); font-family: 'Pirkalla', monospace;">
                                 {{ content|safe }}
-
                             </article>
 
-                            <!-- Pagination -->
-
                             {% if previous or next %}
-
-                            <section
-                                class="grid md:grid-cols-2 gap-5 mt-16 border-t border-slate-300 pt-10">
-
+                            <section class="grid md:grid-cols-2 gap-5 mt-16 pt-10" style="border-top: 2px solid var(--twisted-800);">
                                 {% if previous %}
-
-                                <a
-                                    href="{{ previous.url }}"
-                                    class="rounded-2xl bg-white border border-slate-200 p-5 transition hover:border-blue-500 hover:shadow-xl">
-
-                                    <div
-                                        class="uppercase text-xs font-semibold text-slate-400">
-
-                                        Previous
-
-                                    </div>
-
-                                    <div
-                                        class="mt-2 font-semibold text-lg">
-
-                                        ← {{ previous.title }}
-
-                                    </div>
-
+                                <a href="{{ previous.url }}" class="bevel p-5 transition" style="background: var(--twisted-800);"
+                                   onmouseover="this.style.background='var(--twisted-600)'" onmouseout="this.style.background='var(--twisted-800)'">
+                                    <div style="color: var(--fair-gray);" class="uppercase text-xs font-semibold">Previous</div>
+                                    <div style="color: var(--absolute-white);" class="mt-2 font-semibold text-lg">&#8592; {{ previous.title }}</div>
                                 </a>
-
                                 {% endif %}
-
                                 {% if next %}
-
-                                <a
-                                    href="{{ next.url }}"
-                                    class="rounded-2xl bg-white border border-slate-200 p-5 text-right transition hover:border-blue-500 hover:shadow-xl">
-
-                                    <div
-                                        class="uppercase text-xs font-semibold text-slate-400">
-
-                                        Next
-
-                                    </div>
-
-                                    <div
-                                        class="mt-2 font-semibold text-lg">
-
-                                        {{ next.title }} →
-
-                                    </div>
-
+                                <a href="{{ next.url }}" class="bevel p-5 text-right transition" style="background: var(--twisted-800);"
+                                   onmouseover="this.style.background='var(--twisted-600)'" onmouseout="this.style.background='var(--twisted-800)'">
+                                    <div style="color: var(--fair-gray);" class="uppercase text-xs font-semibold">Next</div>
+                                    <div style="color: var(--absolute-white);" class="mt-2 font-semibold text-lg">{{ next.title }} &#8594;</div>
                                 </a>
-
                                 {% endif %}
-
                             </section>
-
                             {% endif %}
-
                         </div>
 
-                        <!-- TOC -->
-
                         {% if toc %}
-
-                        <aside
-                            class="hidden xl:block w-72 shrink-0">
-
-                            <div
-                                class="sticky top-24 rounded-2xl bg-white border border-slate-200 shadow-sm p-6">
-
-                                <h2
-                                    class="font-bold text-slate-900 mb-4">
-
-                                    On this page
-
-                                </h2>
-
-                                <div class="toc text-sm">
-
-                                    {{ toc|safe }}
-
+                        <aside class="hidden xl:block w-72 shrink-0">
+                            <div class="bevel sticky top-24" style="background: var(--twisted-800);">
+                                <div class="titlebar">
+                                    <span>On this page</span>
+                                    <div class="titlebar-controls"><span>&#215;</span></div>
                                 </div>
-
+                                <div class="toc text-sm p-4">{{ toc|safe }}</div>
                             </div>
-
                         </aside>
-
                         {% endif %}
-
                     </div>
-
                 </div>
-
             </main>
-
         </div>
-
     </div>
 
     <script>
-
         const sidebar = document.getElementById("sidebar");
         const overlay = document.getElementById("overlay");
-
-        function openSidebar() {
-            sidebar.classList.remove("-translate-x-full");
-            overlay.classList.remove("hidden");
-        }
-
-        function closeSidebar() {
-            sidebar.classList.add("-translate-x-full");
-            overlay.classList.add("hidden");
-        }
-
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape") {
-                closeSidebar();
-            }
-        });
-
+        function openSidebar() { sidebar.classList.remove("-translate-x-full"); overlay.classList.remove("hidden"); }
+        function closeSidebar() { sidebar.classList.add("-translate-x-full"); overlay.classList.add("hidden"); }
+        document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeSidebar(); });
     </script>
-
 </body>
-
 </html>

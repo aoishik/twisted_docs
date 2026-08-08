@@ -2,7 +2,7 @@
 title: Twisted Docs
 description: A small static documentation site for testing guides, assets, and Docker deployment.
 order: 0
-icon: 🏠
+icon: 
 ---
 
 # Twisted Docs
