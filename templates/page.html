@@ -130,9 +130,22 @@
                 </div>
             </div>
 
+<<<<<<< HEAD
             <div style="background: var(--twisted-999);" class="px-5 py-3">
                 <a href="{{ base_url }}/" style="color: var(--absolute-white);" class="text-xl font-bold">twisted docs</a>
                 <p style="color: var(--twisted-200);" class="text-sm mt-1">Documentation</p>
+=======
+            <!-- Search -->
+
+            <div class="p-5 relative">
+
+                <input id="search-input" type="search"
+                    placeholder="Search Twisted Docs"
+                    class="w-full rounded-xl bg-slate-900 border border-slate-700 px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+
+                <div id="search-results" class="mt-2 hidden bg-white text-slate-800 rounded-xl shadow-lg max-h-64 overflow-auto border border-slate-200"></div>
+
+>>>>>>> adb2340 (Add Search Implementation)
             </div>
 
             <div class="p-4">
@@ -264,9 +277,81 @@
     <script>
         const sidebar = document.getElementById("sidebar");
         const overlay = document.getElementById("overlay");
+<<<<<<< HEAD
         function openSidebar() { sidebar.classList.remove("-translate-x-full"); overlay.classList.remove("hidden"); }
         function closeSidebar() { sidebar.classList.add("-translate-x-full"); overlay.classList.add("hidden"); }
         document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeSidebar(); });
+=======
+
+        function openSidebar() {
+            sidebar.classList.remove("-translate-x-full");
+            overlay.classList.remove("hidden");
+        }
+
+        function closeSidebar() {
+            sidebar.classList.add("-translate-x-full");
+            overlay.classList.add("hidden");
+        }
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") {
+                closeSidebar();
+            }
+        });
+
+        // Client-side search
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+        let searchIndex = [];
+
+        function fetchSearchIndex() {
+            const idxUrl = "{{ base_url }}/search_index.json";
+            fetch(idxUrl)
+                .then(r => r.ok ? r.json() : Promise.reject())
+                .then(data => { searchIndex = data; })
+                .catch(() => { searchIndex = []; });
+        }
+
+        fetchSearchIndex();
+
+        let debounceTimer;
+        searchInput?.addEventListener('input', (e) => {
+            const q = e.target.value.trim().toLowerCase();
+            clearTimeout(debounceTimer);
+
+            if (!q) {
+                searchResults.classList.add('hidden');
+                searchResults.innerHTML = '';
+                return;
+            }
+
+            debounceTimer = setTimeout(() => {
+                const results = searchIndex.filter(p => (p.title + ' ' + p.description + ' ' + p.content).toLowerCase().includes(q)).slice(0, 10);
+
+                if (results.length === 0) {
+                    searchResults.innerHTML = '<div class="p-3 text-sm text-slate-500">No results</div>';
+                    searchResults.classList.remove('hidden');
+                    return;
+                }
+
+                searchResults.innerHTML = results.map(r => `
+                    <a href="${r.url}" class="block p-3 hover:bg-slate-100 border-b border-slate-100">
+                        <div class="font-semibold">${r.title}</div>
+                        <div class="text-xs text-slate-500">${r.description || r.url}</div>
+                    </a>
+                `).join('');
+
+                searchResults.classList.remove('hidden');
+            }, 150);
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!searchResults.contains(e.target) && e.target !== searchInput) {
+                searchResults.classList.add('hidden');
+            }
+        });
+
+>>>>>>> adb2340 (Add Search Implementation)
     </script>
 </body>
 </html>

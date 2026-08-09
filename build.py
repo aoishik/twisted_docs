@@ -11,6 +11,7 @@ import frontmatter
 import markdown
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from pygments.formatters import HtmlFormatter
+import json
 
 
 CONTENT_DIR = Path("content")
@@ -176,7 +177,7 @@ class Builder:
     def clean(self) -> None:
         """Remove the previous build output and create a fresh dist directory."""
 
-        print("🧹 Cleaning dist...")
+        print("Cleaning dist...")
 
         if DIST_DIR.exists():
             shutil.rmtree(DIST_DIR)
@@ -186,7 +187,7 @@ class Builder:
     def scan(self) -> None:
         """Collect markdown sources and frontmatter into Page objects."""
 
-        print("📄 Scanning markdown...")
+        print("Scanning markdown...")
 
         self.pages.clear()
 
@@ -359,7 +360,7 @@ class Builder:
     def build_pagination(self) -> None:
         """Assign previous and next links from the flattened navigation tree."""
 
-        print("⬅️➡️ Building pagination...")
+        print("⬅Building pagination...")
 
         ordered_pages = self._flatten_navigation(self.navigation)
 
@@ -390,7 +391,7 @@ class Builder:
     def build_breadcrumbs(self) -> None:
         """Build breadcrumb trails from the navigation tree."""
 
-        print("🍞 Building breadcrumbs...")
+        print("Building breadcrumbs...")
 
         for page in self.pages:
             page.breadcrumbs = [{"title": "Home", "url": self.site_url_for_slug("")}]
@@ -415,7 +416,7 @@ class Builder:
         if not STATIC_DIR.exists():
             return
 
-        print("📦 Copying static...")
+        print("Copying static...")
 
         shutil.copytree(STATIC_DIR, DIST_DIR / "static", dirs_exist_ok=True)
 
@@ -425,19 +426,44 @@ class Builder:
         if not ASSET_DIR.exists():
             return
 
-        print("🖼️ Copying assets...")
+        print("Copying assets...")
 
         shutil.copytree(ASSET_DIR, DIST_DIR / "assets", dirs_exist_ok=True)
 
     def generate_pygments(self) -> None:
         """Generate the code block stylesheet used by the Jinja template."""
 
-        print("🎨 Generating syntax highlighting...")
+        print("Generating syntax highlighting...")
 
         css = HtmlFormatter(style="github-dark").get_style_defs(".codehilite")
         target = DIST_DIR / "static" / "pygments.css"
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(css, encoding="utf-8")
+
+    def generate_search_index(self) -> None:
+        """Generate a simple JSON search index of pages for client-side searching."""
+
+        print("Generating search index...")
+
+        index: list[dict[str, str]] = []
+
+        for page in self.pages:
+            # Strip HTML tags to create a plaintext content field
+            plain = re.sub(r'<[^>]+>', '', page.html or '')
+            plain = re.sub(r'\s+', ' ', plain).strip()
+
+            index.append({
+                "title": page.title,
+                "url": page.url,
+                "slug": page.slug,
+                "description": page.description or "",
+                "content": plain,
+            })
+
+        target = DIST_DIR / "search_index.json"
+        target.write_text(json.dumps(index, ensure_ascii=False), encoding="utf-8")
+
+        print("   ✓ search_index.json")
 
     def page_context(self, page: Page) -> dict[str, object]:
         """Prepare the template context for a single page."""
@@ -477,7 +503,7 @@ class Builder:
         """Render and write every page in the site."""
 
         print()
-        print("📄 Writing pages...")
+        print("Writing pages...")
         print()
 
         for page in self.pages:
@@ -495,11 +521,12 @@ class Builder:
         self.copy_static()
         self.copy_assets()
         self.generate_pygments()
+        self.generate_search_index()
         self.write_pages()
 
         print()
         print("=" * 60)
-        print("🎉 Build completed successfully!")
+        print("Build completed successfully!")
         print()
         print(f"Pages          : {len(self.pages)}")
         print(f"Navigation roots: {len(self.navigation)}")
