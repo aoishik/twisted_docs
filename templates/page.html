@@ -6,6 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
     <meta name="description" content="{{ description }}">
+    <meta property="og:title" content="{{ title }}">
+    <meta property="og:description" content="{{ description }}">
+    <meta property="og:url" content="{{ page.url }}">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ base_url }}/assets/twisted_logo_big.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ title }}">
+    <meta name="twitter:description" content="{{ description }}">
+    <meta name="twitter:image" content="{{ base_url }}/assets/twisted_logo_big.png">
     <link rel="stylesheet" href="{{ base_url }}/static/output.css">
     <link rel="stylesheet" href="{{ base_url }}/static/pygments.css">
     <link rel="icon" type="image/png" href="{{ base_url }}/assets/favicon.png">
@@ -28,12 +38,33 @@
             font-style: normal;
             font-display: swap;
         }
+        @font-face {
+            font-family: 'BricolageGrotesque';
+            src: url("{{ base_url }}/static/fonts/BricolageGrotesque.ttf") format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Oxanium';
+            src: url("{{ base_url }}/static/fonts/Oxanium.ttf") format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Foldit';
+            src: url("{{ base_url }}/static/fonts/Foldit.ttf") format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
         * { border-radius: 0 !important; }
         html { scroll-behavior: smooth; }
         body {
             background: var(--surface);
             color: var(--absolute-white);
-            font-family: 'Pirkalla', 'Courier New', monospace;
+            font-family: 'BricolageGrotesque', 'Courier New', monospace;
         }
         .bevel {
             border: 2px solid;
@@ -217,7 +248,11 @@
                                     </div>
                                 </div>
                                 <div class="p-8 lg:p-12 text-center">
-                                    <h1 style="color: var(--absolute-white);" class="text-4xl lg:text-5xl font-extrabold tracking-tight">{{ title }}</h1>
+                                    <h1
+                                        style="color: var(--absolute-white); font-family: 'Foldit', sans-serif;"
+                                        class="text-5xl lg:text-6xl font-extrabold tracking-tight">
+                                        {{ title }}
+                                    </h1>
                                     {% if description %}
                                     <p style="color: var(--twisted-200);" class="mt-5 text-lg max-w-3xl mx-auto leading-relaxed">{{ description }}</p>
                                     {% endif %}
@@ -226,7 +261,7 @@
 
                             <article
                                 class="prose prose-invert max-w-none mt-10 prose-headings:font-bold prose-headings:scroll-mt-24 prose-table:w-full"
-                                style="--tw-prose-body: var(--absolute-white); --tw-prose-headings: var(--absolute-white); --tw-prose-links: var(--twisted-200); --tw-prose-bold: var(--absolute-white); --tw-prose-code: var(--twisted-200); font-family: 'Pirkalla', monospace;">
+                                style="--tw-prose-body: var(--absolute-white); --tw-prose-headings: var(--absolute-white); --tw-prose-links: var(--twisted-200); --tw-prose-bold: var(--absolute-white); --tw-prose-code: var(--twisted-200); font-family: 'Oxanium', monospace;">
                                 {{ content|safe }}
                             </article>
 
