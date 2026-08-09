@@ -14,7 +14,7 @@ COPY . .
 
 RUN mkdir -p static
 
-RUN npm install --no-save tailwindcss@^4 @tailwindcss/cli@^4
+RUN npm install --no-save tailwindcss@^4 @tailwindcss/cli@^4 @tailwindcss/typography
 
 RUN npx --yes @tailwindcss/cli \
         -i input.css \
