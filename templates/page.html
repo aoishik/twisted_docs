@@ -130,28 +130,20 @@
                 </div>
             </div>
 
-<<<<<<< HEAD
             <div style="background: var(--twisted-999);" class="px-5 py-3">
                 <a href="{{ base_url }}/" style="color: var(--absolute-white);" class="text-xl font-bold">twisted docs</a>
                 <p style="color: var(--twisted-200);" class="text-sm mt-1">Documentation</p>
-=======
-            <!-- Search -->
+            </div>
 
             <div class="p-5 relative">
 
                 <input id="search-input" type="search"
                     placeholder="Search Twisted Docs"
-                    class="w-full rounded-xl bg-slate-900 border border-slate-700 px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-
-                <div id="search-results" class="mt-2 hidden bg-white text-slate-800 rounded-xl shadow-lg max-h-64 overflow-auto border border-slate-200"></div>
-
->>>>>>> adb2340 (Add Search Implementation)
-            </div>
-
-            <div class="p-4">
-                <input type="search" placeholder="Search (Coming Soon)"
                     style="background: var(--twisted-999); color: var(--absolute-white); font-family: inherit;"
-                    class="bevel-in w-full px-3 py-2 text-sm outline-none">
+                    class="bevel-in w-full px-4 py-2.5 text-sm outline-none">
+
+                <div id="search-results" style="background: var(--twisted-800); color: var(--absolute-white);" class="mt-2 hidden rounded-xl shadow-lg max-h-64 overflow-auto border border-slate-700"></div>
+
             </div>
 
             <nav class="flex-1 overflow-y-auto px-3 pb-8" style="background: var(--twisted-999);">
@@ -277,11 +269,9 @@
     <script>
         const sidebar = document.getElementById("sidebar");
         const overlay = document.getElementById("overlay");
-<<<<<<< HEAD
         function openSidebar() { sidebar.classList.remove("-translate-x-full"); overlay.classList.remove("hidden"); }
         function closeSidebar() { sidebar.classList.add("-translate-x-full"); overlay.classList.add("hidden"); }
         document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeSidebar(); });
-=======
 
         function openSidebar() {
             sidebar.classList.remove("-translate-x-full");
@@ -351,7 +341,6 @@
             }
         });
 
->>>>>>> adb2340 (Add Search Implementation)
     </script>
 </body>
 </html>
