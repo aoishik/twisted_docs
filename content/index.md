@@ -1,14 +1,16 @@
 ---
 title: Twisted Docs
-description: A small static documentation site for testing guides, assets, and Docker deployment.
+description: Docs for Hack Club YSWS Twisted
 order: 0
 icon: 
 ---
 
-# Twisted Docs
+# Welcome to Twisted!
 
-Use this site to test navigation, clean URLs, and image handling.
+[Twisted](https://twisted.hackclub.com/) is a Hack Club YSWS (You ship, We Ship) program where teens like yourself can design different type of projects from Software to Hardware and get a cool pc(not private channel or personal confession it is Personal Computer)!
 
-- Start with the [Guides](/guides/)
-- Check the [Install guide](/guides/install/)
-- Try the shared asset image and relative image examples there
+The docs section is forever a WIP (poke @aoishik on slack for anything inaccurate or misspelled)
+
+in the meantime, check out [hwdocs.hackclub.dev](https://hwdocs.hackclub.dev) by [@alexren](https://github.com/qcoral) for hardware people!
+
+*#twisters*
