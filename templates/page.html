@@ -151,6 +151,10 @@
             font-size: 1.1rem;
             line-height: 1.75;
         }
+        .ui-heading {
+            font-family: 'Pirkalla', sans-serif;
+            font-weight: 400;
+        }
 
         
     </style>
@@ -164,7 +168,7 @@
             style="background: var(--twisted-800);"
             class="bevel fixed lg:static inset-y-0 left-0 z-50 w-80 transform -translate-x-full lg:translate-x-0 transition duration-300 flex flex-col">
 
-            <div class="titlebar">
+            <div class="titlebar ui-heading">
                 <span>twisted_docs.exe</span>
                 <div class="titlebar-controls">
                     <span>_</span><span>&#9633;</span><span>&#215;</span>
@@ -172,7 +176,7 @@
             </div>
 
             <div style="background: var(--twisted-999);" class="px-5 py-3">
-                <a href="{{ base_url }}/" style="color: var(--absolute-white);" class="text-xl font-bold">twisted docs</a>
+                <a href="{{ base_url }}/" style="color: var(--absolute-white);" class="text-xl font-bold ui-heading">twisted docs</a>
                 <p style="color: var(--twisted-200);" class="text-sm mt-1">Documentation</p>
             </div>
 
@@ -230,7 +234,7 @@
             <header style="background: var(--twisted-400); border-bottom: 2px solid var(--twisted-200);" class="sticky top-0 z-30">
                 <div class="h-12 flex items-center justify-between px-4">
                     <button style="color: var(--absolute-white);" class="lg:hidden bevel px-2 py-1" onclick="openSidebar()">&#9776;</button>
-                    <div style="color: var(--absolute-white);" class="text-sm flex flex-wrap items-center gap-0.5">
+                    <div style="color: var(--absolute-white);" class="ui-heading text-sm flex flex-wrap items-center gap-0.5">
                         {% for crumb in breadcrumbs %}
                             {% if not loop.first %}<span class="mx-2" style="color: var(--twisted-200);">/</span>{% endif %}
                             {% if crumb.url %}
@@ -250,14 +254,16 @@
                     <div class="flex gap-10">
                         <div class="flex-1 min-w-0">
                             <section class="bevel overflow-hidden" style="background: var(--twisted-800);">
-                                <div class="titlebar">
+                                <div class="titlebar ui-heading">
                                     <span>{{ title }}.txt</span>
                                     <div class="titlebar-controls">
                                         <span>_</span><span>&#9633;</span><span>&#215;</span>
                                     </div>
                                 </div>
                                 <div class="p-8 lg:p-12 text-center">
-                                    <h1 style="color: var(--absolute-white);" class="hero-title text-4xl lg:text-5xl tracking-tight">
+                                    <h1
+                                        style="color: var(--absolute-white); font-family: 'Pirkalla', sans-serif;"
+                                        class="text-4xl lg:text-5xl font-extrabold tracking-tight">
                                         {{ title }}
                                     </h1>
                                     {% if description %}
@@ -295,7 +301,7 @@
                         {% if toc %}
                         <aside class="hidden xl:block w-72 shrink-0">
                             <div class="bevel sticky top-24" style="background: var(--twisted-800);">
-                                <div class="titlebar">
+                                <div class="titlebar ui-heading">
                                     <span>On this page</span>
                                     <div class="titlebar-controls"><span>&#215;</span></div>
                                 </div>
