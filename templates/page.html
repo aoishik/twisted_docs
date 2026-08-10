@@ -39,22 +39,8 @@
             font-display: swap;
         }
         @font-face {
-            font-family: 'BricolageGrotesque';
-            src: url("{{ base_url }}/static/fonts/BricolageGrotesque.ttf") format('truetype');
-            font-weight: 400;
-            font-style: normal;
-            font-display: swap;
-        }
-        @font-face {
             font-family: 'Oxanium';
             src: url("{{ base_url }}/static/fonts/Oxanium.ttf") format('truetype');
-            font-weight: 400;
-            font-style: normal;
-            font-display: swap;
-        }
-        @font-face {
-            font-family: 'Foldit';
-            src: url("{{ base_url }}/static/fonts/Foldit.ttf") format('truetype');
             font-weight: 400;
             font-style: normal;
             font-display: swap;
@@ -64,7 +50,7 @@
         body {
             background: var(--surface);
             color: var(--absolute-white);
-            font-family: 'BricolageGrotesque', 'Courier New', monospace;
+            font-family: 'Oxanium', 'Courier New', monospace;
         }
         .bevel {
             border: 2px solid;
@@ -142,6 +128,29 @@
         .prose code { color: var(--twisted-200); }
         .prose a { color: var(--twisted-200); text-decoration: underline; }
         .prose a:hover { color: var(--absolute-white); }
+        .prose h1,
+        .prose h2,
+        .prose h3,
+        .prose h4,
+        .prose h5,
+        .prose h6 {
+            font-family: 'Pirkalla', sans-serif;
+            font-weight: 400;
+        }
+
+        .hero-title {
+            font-family: 'Pirkalla', sans-serif;
+            font-weight: 400;
+        }
+        .prose {
+            font-size: 1.1rem;
+            line-height: 1.75;
+        }
+
+        .prose p {
+            font-size: 1.1rem;
+            line-height: 1.75;
+        }
 
         
     </style>
@@ -248,9 +257,7 @@
                                     </div>
                                 </div>
                                 <div class="p-8 lg:p-12 text-center">
-                                    <h1
-                                        style="color: var(--absolute-white); font-family: 'Foldit', sans-serif;"
-                                        class="text-5xl lg:text-6xl font-extrabold tracking-tight">
+                                    <h1 style="color: var(--absolute-white);" class="hero-title text-4xl lg:text-5xl tracking-tight">
                                         {{ title }}
                                     </h1>
                                     {% if description %}
