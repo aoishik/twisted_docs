@@ -1,7 +1,7 @@
 ---
 title: Shipping Software
 description: How to ship a software project for Twisted
-order: 2
+order: 3
 icon: SHIP
 ---
 # Shipping Software
