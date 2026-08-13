@@ -51,6 +51,7 @@ The format depends on what you built so you should see [Shipping by project type
 ## Shipping by project type
 ### Web apps and sites
 This is the easiest to setup and demo.
+
 | Host | Good for | Notes |
 | --- | --- | --- |
 | [GitHub Pages](https://pages.github.com/) | Static sites | Free, simple, but no backend |
