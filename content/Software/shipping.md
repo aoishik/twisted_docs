@@ -1,29 +1,18 @@
 ---
 title: Shipping Software
 description: How to ship a software project for Twisted
-order: 3
-icon: SHIP
+order: 1
 ---
-# Shipping Software
-"Shipping" is when you build something and make it possible for others to actually use it.
 
-## What a "shipped project" actually means
-A project is shipped when someone who has never met you can:
+This page is specifically about shipping software, you can find more about shipping [here](/shipping).
 
-1. **Find it** with a repo and demo.
-2. **Use it**, no need to clone the repo or ask for more instrcutions.
-3. **Open Source**, this has to be on a Git based provider like GitHub or [git.hackclub.app](https://git.hackclub.app).
+# The four things every ship needs
 
-If a reviewer has to ask you to get it working, it isn't shipped yet.
-
-
-## The four things every ship needs
-
-### 1. A public repo
+## 1. A public repo
 You need a github repo, which is set to public, with real commit history. Don't put six weeks of work into one `initial commit`, as we have no evidence you built it.
 Use Github desktop or Git to regularly commit whenever you feel that you made something or did progress.
 
-### 2. A README that has enough info
+## 2. A README that has enough info
 Reviewers will read it first, and it's what people see when they find your repo later.
 
 You can use this as a starting point for your README:
@@ -52,6 +41,7 @@ npm run dev
 ## Built with
 (insert whatever you built this with)
 ~~~
+Feel free to modify this, or not use this at all (even better!). Make your README as customised as possible with images, links, more about you, etc.
 
 ### 3. A live demo
 The format depends on what you built so you should see [Shipping by project type](#shipping-by-project-type) below.
@@ -79,8 +69,8 @@ Don't use Render, Railway, Streamlit or anything that is a free trial or has loa
 - Or attach prebuilt executables to a GitHub Release.
 
 ### Mobile apps
-- **Android:** an APK on a Github Release.
-- **ios / cross-platform:** uh idk
+- **Android:** Preferabily on Google Play Store, but an APK on Github Releases also works.
+- **iOS:** This isn't required, as Apple doesnt provide an easy way to sideload iOS apps, but an app on the App Store would be nice
 
 ## Track your time
 

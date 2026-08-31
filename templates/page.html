@@ -163,8 +163,16 @@
             font-family: 'Pirkalla', sans-serif;
             font-weight: 400;
         }
-
         
+        .headerlink {
+            margin-left: 1ch;
+            text-decoration: none !important;
+            opacity: 10%;
+        }
+
+        *:has(> .headerlink):hover .headerlink {
+            opacity: 90%;
+        }
     </style>
 </head>
 
