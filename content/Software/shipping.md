@@ -5,26 +5,34 @@ order: 3
 icon: SHIP
 ---
 # Shipping Software
-"Shipping" is where you build a thing, you put it somewhere reviewers and others can actually use it, and get rewards
-## What "shipped" actually means
+"Shipping" is when you build something and make it possible for others to actually use it.
+
+## What a "shipped project" actually means
 A project is shipped when someone who has never met you can:
+
 1. **Find it** with a repo and demo.
 2. **Use it**, no need to clone the repo or ask for more instrcutions.
-3. **Open Source**, this has to be on a Git based provider like github.
+3. **Open Source**, this has to be on a Git based provider like GitHub or [git.hackclub.app](https://git.hackclub.app).
+
 If a reviewer has to ask you to get it working, it isn't shipped yet.
 
+
 ## The four things every ship needs
+
 ### 1. A public repo
 You need a github repo, which is set to public, with real commit history. Don't put six weeks of work into one `initial commit`, as we have no evidence you built it.
 Use Github desktop or Git to regularly commit whenever you feel that you made something or did progress.
+
 ### 2. A README that has enough info
 Reviewers will read it first, and it's what people see when they find your repo later.
+
+You can use this as a starting point for your README:
 ~~~markdown
 # Project name
 
 A short description on what it does 
 
-![screenshot](assets/screenshot.png)
+![screenshot](path/to/screenshot.png)
 
 ## Try it
 https://example.com
@@ -44,6 +52,7 @@ npm run dev
 ## Built with
 (insert whatever you built this with)
 ~~~
+
 ### 3. A live demo
 The format depends on what you built so you should see [Shipping by project type](#shipping-by-project-type) below.
 
